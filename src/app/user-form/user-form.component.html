@@ -1,0 +1,23 @@
+<!-- #txtUserName: template reference variable, [(ngModel)]: two way biding -->
+<input placeholder="Enter username" [(ngModel)]="name" #txtUserName />
+
+<!-- <input placeholder="Enter username" (keyup)="showEvent($event);" /> -->
+
+<!-- style binding -->
+<!-- <h3 [style.color]="isHighLight ? 'red': 'black'"
+[style.fontSize]="isHighLight ? '40px': '20px'"
+>
+  Your name is: {{ name }}
+</h3>   -->
+
+<!-- [ngStyle] -->
+<h3 [ngStyle]="name.length % 2 === 0 ? evenStyle : oddStyle">
+  Your name is: {{ name }}
+</h3>
+
+<!-- <code>{{ txtUserName.value | json }}</code> -->
+<div [class]="isHighLight ? 'circle' : 'square'"></div> <!-- class binding -->
+<div [class.circle]="!isHighLight" [class.square]="isHighLight"></div>
+
+<!-- [ngClass] -->
+<div [ngClass]="currentClass"></div>
