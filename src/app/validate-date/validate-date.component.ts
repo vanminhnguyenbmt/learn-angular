@@ -7,24 +7,24 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ValidateDateComponent implements OnInit {
 
-  @Input() day: number = null;
-  @Input() month: number = null;
-  @Input() year: number = null;
-  @Input() isShowErrorDay = false;
-  @Input() isShowErrorMonth = false;
-  @Input() isShowErrorYear = false;
-  @Input() isShowDate = false;
-  @Input() dayErrorMessage: string;
-  @Input() monthErrorMessage: string;
-  @Input() yearErrorMessage: string;
+  day: number = null;
+  month: number = null;
+  year: number = null;
+  isShowErrorDay = false;
+  isShowErrorMonth = false;
+  isShowErrorYear = false;
+  isShowDate = false;
+  dayErrorMessage: string;
+  monthErrorMessage: string;
+  yearErrorMessage: string;
   @Input() min_day = 1;
   @Input() max_day = 31;
-  @Input() myDate: string;
+  myDate: string;
 
-  @Output() handleCheckDayInput = new EventEmitter<void>();
-  @Output() handleCheckMonthInput = new EventEmitter<void>();
-  @Output() handleCheckYearInput = new EventEmitter<void>();
-  @Output() handleShowDate = new EventEmitter<void>();
+  @Output() handleDayInput = new EventEmitter<void>();
+  @Output() handleMonthInput = new EventEmitter<void>();
+  @Output() handleYearInput = new EventEmitter<void>();
+  @Output() handleDate = new EventEmitter<void>();
 
   constructor() { }
 
@@ -32,7 +32,7 @@ export class ValidateDateComponent implements OnInit {
   }
 
   checkDayInput(): void {
-    this.handleCheckDayInput.emit();
+    this.handleDayInput.emit();
     this.isShowDate = false;
     if (this.day === null) {
       this.isShowErrorDay = true;
@@ -46,7 +46,7 @@ export class ValidateDateComponent implements OnInit {
   }
 
   checkMonthInput(): void {
-    this.handleCheckMonthInput.emit();
+    this.handleMonthInput.emit();
     this.isShowDate = false;
     if (this.day !== null) {
       this.checkDayOfMonth();
@@ -64,7 +64,7 @@ export class ValidateDateComponent implements OnInit {
   }
 
   checkYearInput(): void {
-    this.handleCheckYearInput.emit();
+    this.handleYearInput.emit();
     this.isShowDate = false;
     if (this.day !== null && this.month !== null) {
       this.checkDayOfMonth();
