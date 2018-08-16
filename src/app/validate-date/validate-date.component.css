@@ -1,0 +1,14 @@
+.date-container {
+    text-align: center;
+}
+
+.date-container input {
+    margin: 7px;
+    text-align: center;
+    width: 150px;
+}
+
+.show-date {
+    display: flex;
+    justify-content: center;
+}

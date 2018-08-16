@@ -1,0 +1,38 @@
+<div class="date-container">
+  <h1>MY DATE OF BIRTH IS</h1>
+  <input type="number" placeholder="DD" min="1" max="31" [(ngModel)]="day" (focusout)="checkDayInput()" />
+  <input type="number" placeholder="MM" min="1" max="12" [(ngModel)]="month" (focusout)="checkMonthInput()" />
+  <input type="number" placeholder="YYYY" min="1" [(ngModel)]="year" (focusout)="checkYearInput()" />
+
+
+  <div *ngIf="isShowErrorDay">
+    <div class="alert alert-warning" *ngIf="dayErrorMessage !== '' || dayErrorMessage !== null">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{{ dayErrorMessage }}</strong>
+    </div>
+  </div>
+
+  <div *ngIf="isShowErrorMonth">
+    <div class="alert alert-warning" *ngIf="monthErrorMessage !== '' || monthErrorMessage !== null">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{{ monthErrorMessage }}</strong>
+    </div>
+  </div>
+
+  <div *ngIf="isShowErrorYear">
+    <div class="alert alert-warning" *ngIf="yearErrorMessage !== '' || yearErrorMessage !== null">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{{ yearErrorMessage }}</strong>
+    </div>
+  </div>
+
+
+  <br><br><br>
+  <div class="show-date" *ngIf="isShowDate">
+    <!-- <h1>{{ day }}/</h1>
+    <h1>{{ month }}/</h1>
+    <h1>{{ year }}</h1> -->
+    <h1>{{ myDate }}</h1>
+  </div>
+  <button (click)="showDate()">Submit</button>
+</div>
