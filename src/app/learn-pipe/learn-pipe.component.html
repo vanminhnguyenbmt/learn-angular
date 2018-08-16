@@ -1,0 +1,16 @@
+<p>
+  {{ birthDay | date }}
+</p>
+<p>
+  {{ birthDay | date: 'shortTime' }}
+</p>
+<p>
+  {{ person | json }}
+</p>
+<p>
+  {{ person | json | uppercase }}
+</p>
+<p>
+  {{ person.name | uppercase }}
+</p>
+<p>{{ address | async }}</p>

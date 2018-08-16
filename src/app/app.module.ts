@@ -14,6 +14,7 @@ import { ParentComponent } from './parent.component';
 import { ChildComponent } from './child.component';
 import { CardComponent } from './card.component';
 import { ValidateDateComponent } from './validate-date/validate-date.component';
+import { LearnPipeComponent } from './learn-pipe/learn-pipe.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ValidateDateComponent } from './validate-date/validate-date.component';
     ParentComponent,
     ChildComponent,
     CardComponent,
-    ValidateDateComponent
+    ValidateDateComponent,
+    LearnPipeComponent
   ],
   imports: [
     BrowserModule,
