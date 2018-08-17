@@ -47,6 +47,7 @@ export class ValidateDateComponent implements OnInit {
     this.dayRange = new Range(this.tempMinDate.getDate(), this.tempMaxDate.getDate());
     this.monthRange = new Range(this.tempMinDate.getMonth() + 1, this.tempMaxDate.getMonth() + 1);
     this.yearRange = new Range(this.tempMinDate.getFullYear(), this.tempMaxDate.getFullYear());
+    console.log(this.monthRange);
   }
 
   checkDayInput(): void {
