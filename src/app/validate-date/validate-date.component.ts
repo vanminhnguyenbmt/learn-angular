@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Range } from './validate-date.range';
 
 @Component({
   selector: 'app-validate-date',
@@ -6,47 +8,61 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./validate-date.component.css']
 })
 export class ValidateDateComponent implements OnInit {
+  @Input() minDate: string;
+  @Input() maxDate: string;
+  dayErrorMessage: string;
+  monthErrorMessage: string;
+  yearErrorMessage: string;
+  myDate: string;
 
-  day: number = null;
-  month: number = null;
-  year: number = null;
+  tempMinDate: Date;
+  tempMaxDate: Date;
+
+  day: number;
+  month: number;
+  year: number;
+
   isShowErrorDay = false;
   isShowErrorMonth = false;
   isShowErrorYear = false;
   isShowDate = false;
-  dayErrorMessage: string;
-  monthErrorMessage: string;
-  yearErrorMessage: string;
-  @Input() min_day = 1;
-  @Input() max_day = 31;
-  myDate: string;
 
-  @Output() handleDayInput = new EventEmitter<void>();
-  @Output() handleMonthInput = new EventEmitter<void>();
-  @Output() handleYearInput = new EventEmitter<void>();
-  @Output() handleDate = new EventEmitter<void>();
+  dayRange: Range;
+  monthRange: Range;
+  yearRange: Range;
 
-  constructor() { }
+  constructor() {
+    this.dayRange = new Range(1, 31);
+    this.monthRange = new Range(1, 12);
+    this.yearRange = new Range(1800, 3000);
+  }
 
   ngOnInit() {
+    if (this.minDate === undefined || this.maxDate === undefined) {
+      return;
+    }
+    this.tempMinDate = new Date(this.minDate);
+    this.tempMaxDate = new Date(this.maxDate);
+
+    this.dayRange = new Range(this.tempMinDate.getDate(), this.tempMaxDate.getDate());
+    this.monthRange = new Range(this.tempMinDate.getMonth() + 1, this.tempMaxDate.getMonth() + 1);
+    this.yearRange = new Range(this.tempMinDate.getFullYear(), this.tempMaxDate.getFullYear());
   }
 
   checkDayInput(): void {
-    this.handleDayInput.emit();
     this.isShowDate = false;
     if (this.day === null) {
       this.isShowErrorDay = true;
       this.dayErrorMessage = 'Vui lòng nhập vào ngày';
-    } else if (this.day < this.min_day || this.day > this.max_day) {
+    } else if (this.day < this.dayRange.min || this.day > this.dayRange.max) {
       this.isShowErrorDay = true;
-      this.dayErrorMessage = 'Ngày phải nằm trong khoảng từ ' + this.min_day + ' đến ' + this.max_day;
+      this.dayErrorMessage = 'Ngày phải nằm trong khoảng từ ' + this.dayRange.min + ' đến ' + this.dayRange.max;
     } else {
       this.isShowErrorDay = false;
     }
   }
 
   checkMonthInput(): void {
-    this.handleMonthInput.emit();
     this.isShowDate = false;
     if (this.day !== null) {
       this.checkDayOfMonth();
@@ -55,16 +71,15 @@ export class ValidateDateComponent implements OnInit {
     if (this.month === null) {
       this.isShowErrorMonth = true;
       this.monthErrorMessage = 'Vui lòng nhập vào tháng';
-    } else if (this.month < 1 || this.month > 12) {
+    } else if (this.month < this.monthRange.min || this.month > this.monthRange.max) {
       this.isShowErrorMonth = true;
-      this.monthErrorMessage = 'Tháng phải nằm trong khoảng từ 1 đến 12';
+      this.monthErrorMessage = 'Tháng phải nằm trong khoảng từ ' + this.monthRange.min + ' đến ' + this.monthRange.max;
     } else {
       this.isShowErrorMonth = false;
     }
   }
 
   checkYearInput(): void {
-    this.handleYearInput.emit();
     this.isShowDate = false;
     if (this.day !== null && this.month !== null) {
       this.checkDayOfMonth();
@@ -74,9 +89,9 @@ export class ValidateDateComponent implements OnInit {
     if (this.year === null) {
       this.isShowErrorYear = true;
       this.yearErrorMessage = 'Vui lòng nhập vào năm';
-    } else if (this.year < 1) {
+    } else if (this.year < this.yearRange.min || this.year > this.yearRange.max) {
       this.isShowErrorYear = true;
-      this.yearErrorMessage = 'Năm phải lớn hơn 1';
+      this.yearErrorMessage = 'Năm phải nằm trong khoảng từ ' + this.yearRange.min + ' đến ' + this.yearRange.max;
     } else {
       this.isShowErrorYear = false;
     }
@@ -85,14 +100,14 @@ export class ValidateDateComponent implements OnInit {
   checkDayOfMonth(): void {
     if (this.month === 1 || this.month === 3 || this.month === 5 || this.month === 7 ||
       this.month === 8 || this.month === 10 || this.month === 12 || this.month === null) {
-      this.max_day = 31;
+      this.dayRange.max = 31;
     } else if (this.month === 4 || this.month === 6 || this.month === 9 || this.month === 11) {
-      this.max_day = 30;
+      this.dayRange.max = 30;
     } else if (this.month === 2) {
       if (this.year === null) {
-        this.max_day = 28;
+        this.dayRange.max = 28;
       } else {
-        this.isLeapYear(this.year) ? this.max_day = 29 : this.max_day = 28;
+        this.isLeapYear(this.year) ? this.dayRange.max = 29 : this.dayRange.max = 28;
       }
     }
   }
@@ -119,7 +134,6 @@ export class ValidateDateComponent implements OnInit {
   }
 
   showDate() {
-    this.handleShowDate.emit();
     this.checkAll();
     if (this.isShowErrorDay === true || this.isShowErrorMonth === true || this.isShowErrorYear === true) {
       this.isShowDate = false;
