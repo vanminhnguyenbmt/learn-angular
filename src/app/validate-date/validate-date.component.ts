@@ -49,7 +49,7 @@ export class ValidateDateComponent implements OnInit {
   }
 
   checkDayInput(): void {
-    this.isShowDate = false;
+    // this.isShowDate = false;
     if (this.day === null) {
       this.isShowErrorDay = true;
       this.dayErrorMessage = 'Vui lòng nhập vào ngày';
@@ -68,7 +68,7 @@ export class ValidateDateComponent implements OnInit {
   }
 
   checkMonthInput(): void {
-    this.isShowDate = false;
+    // this.isShowDate = false;
     if (this.day !== null) {
       this.checkDayOfMonth();
       this.checkDayInput();
@@ -91,7 +91,7 @@ export class ValidateDateComponent implements OnInit {
   }
 
   checkYearInput(): void {
-    this.isShowDate = false;
+    // this.isShowDate = false;
     if ((this.day !== null && this.month !== null)) {
       this.checkDayOfMonth();
       this.checkDayInput();
@@ -169,6 +169,20 @@ export class ValidateDateComponent implements OnInit {
     if (this.isNullInput()) {
       this.isShowDate = true;
       this.myDate = 'Vui lòng nhập đầy đủ thông tin';
+    } else {
+      this.checkAll();
+      if (this.isShowErrorDay === true || this.isShowErrorMonth === true || this.isShowErrorYear === true) {
+        this.isShowDate = false;
+      } else {
+        this.isShowDate = true;
+        this.outputDate();
+      }
+    }
+  }
+
+  onChangeInput() {
+    if (this.isNullInput()) {
+      this.isShowDate = false;
     } else {
       this.checkAll();
       if (this.isShowErrorDay === true || this.isShowErrorMonth === true || this.isShowErrorYear === true) {
