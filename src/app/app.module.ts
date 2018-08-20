@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,7 @@ import { IpComponent } from './ip.component';
 import { IpService } from './ip.service';
 import { WeatherComponent } from './weather/weather.component';
 import { SignInComponent } from './sign-in.component';
+import { SignUpComponent } from './sign-up.component';
 
 
 @NgModule({
@@ -41,12 +42,14 @@ import { SignInComponent } from './sign-in.component';
     RoundPipe,
     IpComponent,
     WeatherComponent,
-    SignInComponent
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule
   ],
   providers: [IpService],
   bootstrap: [AppComponent]
