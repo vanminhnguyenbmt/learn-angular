@@ -26,7 +26,7 @@ import { Component } from '@angular/core';
                 #txtPassword="ngModel"
                 name="password"
                 minlength="6"
-                pattern
+                pattern="[a-z]*"
             >
             <br><br>
             <div ngModelGroup="subjects">
@@ -47,6 +47,6 @@ import { Component } from '@angular/core';
 export class SignInComponent {
     onSubmit(formSignIn) {
         console.log(formSignIn);
-        throw new Error('Form is invalid');
+        // throw new Error('Form is invalid');
     }
 }
