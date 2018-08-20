@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { SignInService } from './sign-in.service';
 
 @Component({
     selector: 'app-sign-in',
@@ -39,36 +40,32 @@ import { Http, Headers } from '@angular/http';
             <button [disabled]="formSignIn.invalid">Submit</button>
         </form>
         <br>
-        <button (click)="postToExpress();">POST</button>
+        <!-- <button (click)="postToExpress();">POST</button> -->
         <p>{{ txtEmail.errors | json }}</p>
         <p>{{ txtPassword.errors | json }}</p>
         <p>{{ formSignIn.value | json }}</p>
-    `
+    `,
+    providers: [SignInService]
 })
 
 
 export class SignInComponent {
-    constructor(private http: Http) {
+    constructor(private signInService: SignInService) {
     }
 
     onSubmit(formSignIn) {
-        const url = 'http://localhost:3000/signin';
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const body = JSON.stringify(formSignIn.value);
-        // console.log(body);
-        this.http.post(url, body, { headers })
-            .toPromise()
-            .then(res => res.json())
-            .then(resJSON => console.log(resJSON));
+        this.signInService.sendPost(formSignIn.value)
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
     }
 
-    postToExpress() {
-        const url = 'http://localhost:3000/signin';
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const body = JSON.stringify({ name: 'Angular 4 & ReactJS' });
-        this.http.post(url, body, { headers })
-            .toPromise()
-            .then(res => res.text())
-            .then(resText => console.log(resText));
-    }
+    // postToExpress() {
+    //     const url = 'http://localhost:3000/signin';
+    //     const headers = new Headers({ 'Content-Type': 'application/json' });
+    //     const body = JSON.stringify({ name: 'Angular 4 & ReactJS' });
+    //     this.http.post(url, body, { headers })
+    //         .toPromise()
+    //         .then(res => res.text())
+    //         .then(resText => console.log(resText));
+    // }
 }
