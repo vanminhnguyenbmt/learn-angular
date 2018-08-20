@@ -2,6 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Routes, RouterModule } from '@angular/router';
+
+const routesConfig: Routes = [
+  { path: 'contacts', component: ContactsComponent },
+  { path: 'detail', component: ContactDetailComponent }
+]
 
 import { AppComponent } from './app.component';
 import { WordComponent } from './word/word.component';
@@ -22,6 +28,8 @@ import { IpService } from './ip.service';
 import { WeatherComponent } from './weather/weather.component';
 import { SignInComponent } from './sign-in.component';
 import { SignUpComponent } from './sign-up.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 
 @NgModule({
@@ -43,13 +51,16 @@ import { SignUpComponent } from './sign-up.component';
     IpComponent,
     WeatherComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    ContactsComponent,
+    ContactDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(routesConfig)
   ],
   providers: [IpService],
   bootstrap: [AppComponent]
