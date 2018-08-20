@@ -37,19 +37,14 @@ export class ValidateDateComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (this.minDate === undefined || this.maxDate === undefined) {
-    //   return;
-    // }
-    // this.tempMinDate = new Date(this.minDate);
-    // this.tempMaxDate = new Date(this.maxDate);
-
-    // this.dayRange = new Range(this.tempMinDate.getDate(), this.tempMaxDate.getDate());
-    // this.monthRange = new Range(this.tempMinDate.getMonth() + 1, this.tempMaxDate.getMonth() + 1);
-    // this.yearRange = new Range(this.tempMinDate.getFullYear(), this.tempMaxDate.getFullYear());
+    if ((this.minDate !== undefined && this.maxDate !== undefined) && ((this.minDate !== null && this.maxDate !== null))) {
+      this.tempMinDate = new Date(this.minDate);
+      this.tempMaxDate = new Date(this.maxDate);
+      this.yearRange = new Range(this.tempMinDate.getFullYear(), this.tempMaxDate.getFullYear());
+    }
   }
 
   checkDayInput(): void {
-    // this.isShowDate = false;
     if (this.day === null) {
       this.isShowErrorDay = true;
       this.dayErrorMessage = 'Vui lòng nhập vào ngày';
@@ -68,7 +63,6 @@ export class ValidateDateComponent implements OnInit {
   }
 
   checkMonthInput(): void {
-    // this.isShowDate = false;
     if (this.day !== null) {
       this.checkDayOfMonth();
       this.checkDayInput();
@@ -91,7 +85,6 @@ export class ValidateDateComponent implements OnInit {
   }
 
   checkYearInput(): void {
-    // this.isShowDate = false;
     if ((this.day !== null && this.month !== null)) {
       this.checkDayOfMonth();
       this.checkDayInput();
@@ -196,17 +189,21 @@ export class ValidateDateComponent implements OnInit {
 
   outputDate() {
     const dateString = `${this.year}/${this.month}/${this.day}`;
-    const minInterval = Date.parse(this.minDate);
-    const maxInterval = Date.parse(this.maxDate);
     const checkDay = Date.parse(dateString);
 
-    const errMinDate = new Date(this.minDate).toLocaleDateString();
-    const errMaxDate = new Date(this.maxDate).toLocaleDateString();
+    if ((this.minDate !== undefined && this.maxDate !== undefined) && ((this.minDate !== null && this.maxDate !== null))) {
+      const minInterval = Date.parse(this.minDate);
+      const maxInterval = Date.parse(this.maxDate);
+      const errMinDate = new Date(this.minDate).toLocaleDateString();
+      const errMaxDate = new Date(this.maxDate).toLocaleDateString();
 
-    if (checkDay >= minInterval && checkDay <= maxInterval) {
-      this.myDate = new Date(dateString).toLocaleDateString();
+      if (checkDay >= minInterval && checkDay <= maxInterval) {
+        this.myDate = new Date(dateString).toLocaleDateString();
+      } else {
+        this.myDate = 'Ngày tháng năm sinh phải nằm trong khoảng từ ' + errMinDate + ' đến ' + errMaxDate;
+      }
     } else {
-      this.myDate = 'Ngày tháng năm sinh phải nằm trong khoảng từ ' + errMinDate + ' đến ' + errMaxDate;
+      this.myDate = new Date(dateString).toLocaleDateString();
     }
   }
 }
