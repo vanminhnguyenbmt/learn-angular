@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { Http, Headers } from '@angular/http';
 
 @Component({
     selector: 'app-sign-in',
     template: `
-        <form (ngSubmit)="onSubmit(txtEmail);" #formSignIn="ngForm">
+        <form (ngSubmit)="onSubmit(formSignIn);" #formSignIn="ngForm">
             <input
                 placeholder="Email"
                 ngModel
@@ -15,7 +16,7 @@ import { Component } from '@angular/core';
             <p *ngIf="txtEmail.touched && txtEmail.errors?.required">
                 Email is required
             </p>
-            <p *ngIf="txtEmail.errors?.email">
+            <p *ngIf="txtEmail.touched && txtEmail.errors?.email">
                 Email is not valid
             </p>
             <br><br>
@@ -30,13 +31,15 @@ import { Component } from '@angular/core';
             >
             <br><br>
             <div ngModelGroup="subjects">
-                <label><input type="checkbox" [ngModel]="false" name="NodeJS" /> NodeJS</label>
-                <label><input type="checkbox" [ngModel]="false" name="Angular 4" /> Angular 4</label>
-                <label><input type="checkbox" [ngModel]="false" name="ReactJS" /> ReactJS</label>
+                <label><input type="checkbox" [ngModel]="false" name="NodeJS"> NodeJS</label>
+                <label><input type="checkbox" [ngModel]="false" name="Angular"> Angular</label>
+                <label><input type="checkbox" [ngModel]="false" name="ReactJS"> ReactJS</label>
             </div>
             <br><br>
             <button [disabled]="formSignIn.invalid">Submit</button>
         </form>
+        <br>
+        <button (click)="postToExpress();">POST</button>
         <p>{{ txtEmail.errors | json }}</p>
         <p>{{ txtPassword.errors | json }}</p>
         <p>{{ formSignIn.value | json }}</p>
@@ -45,8 +48,27 @@ import { Component } from '@angular/core';
 
 
 export class SignInComponent {
+    constructor(private http: Http) {
+    }
+
     onSubmit(formSignIn) {
-        console.log(formSignIn);
-        // throw new Error('Form is invalid');
+        const url = 'http://localhost:3000/signin';
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const body = JSON.stringify(formSignIn.value);
+        // console.log(body);
+        this.http.post(url, body, { headers })
+            .toPromise()
+            .then(res => res.json())
+            .then(resJSON => console.log(resJSON));
+    }
+
+    postToExpress() {
+        const url = 'http://localhost:3000/signin';
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const body = JSON.stringify({ name: 'Angular 4 & ReactJS' });
+        this.http.post(url, body, { headers })
+            .toPromise()
+            .then(res => res.text())
+            .then(resText => console.log(resText));
     }
 }
