@@ -1,0 +1,279 @@
+<!-- =============== Start of Header 1 Navigation =============== -->
+<header class="header1">
+		<nav class="navbar navbar-default navbar-static-top fluid_header centered">
+			<div class="container">
+				
+				<!-- Logo -->
+				<div class="col-md-2 col-sm-6 col-xs-8 nopadding">
+					<a class="navbar-brand nomargin" routerLink="/home"><img src="assets/images/logo.svg" alt="logo"></a>
+					<!-- INSERT YOUR LOGO HERE -->
+				</div>
+	
+				<!-- ======== Start of Main Menu ======== -->
+				<div class="col-md-10 col-sm-6 col-xs-4 nopadding">
+					<div class="navbar-header page-scroll">
+						<button type="button" class="navbar-toggle toggle-menu menu-right push-body" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+	
+					<!-- Start of Main Nav -->
+					<div class="collapse navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="main-nav">
+						<ul class="nav navbar-nav pull-right">
+                                <li class="menu-item login-btn">
+                                    <a  role="button" routerLink="/auth"><i class="fa fa-lock">&nbsp;</i>login</a>
+                                </li>
+	
+								<li class="login-btn dropdown simple-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">{{language}} <i class="fa fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li (click)="setLanguage('fr')"><a>Fr</a></li>
+                                        <li (click)="setLanguage('en')"><a>En</a></li>
+                                    </ul>
+                                </li>
+	
+						</ul>
+					</div>
+					<!-- End of Main Nav -->
+				</div>
+				<!-- ======== End of Main Menu ======== -->
+	
+			</div>
+		</nav>
+	</header>
+	<!-- =============== End of Header 1 Navigation =============== -->
+
+<!-- <div class="container">
+
+	<div class="row">
+
+		<div class="col-sm-6">
+			<h2>{{'auth.register' | translate}}</h2>
+			<p>{{'auth.titleregister' | translate}}</p>
+			<form class="form-inline" [formGroup]="registerForm" (ngSubmit)="registerAction()" novalidate>		
+				<div class="form-group" [class.has-error]="formErrors.email">
+					<input formControlName="email" type="email" id="email" name="email" class="form-control" placeholder="{{'auth.email' | translate}}"/>	
+					<button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || formSubmitting">{{'auth.register' | translate}}</button>
+					<span *ngIf="formErrors.email && formErrors.email == 'unique'" class="help-block"><b>{{'message.validation.unique' | translate}}</b></span>
+					<span *ngIf="formSuccess.status" class="help-block"><b>{{formSuccess.message | translate}}</b></span>
+					
+				</div>	  
+			</form>
+		</div>
+
+	</div>
+</div> -->
+
+<!-- ===== Start of Login - Register Section ===== -->
+
+<section class="ptb80" id="register">
+        <div class="container">
+            <div class="text-center">
+                <h2>{{'auth.register'}}</h2>
+            </div>
+                
+                
+            <div class="row mt-20">
+                <div class="col-md-12">
+
+                    <!-- Start of Nav Tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+
+                        <!-- Personal Account Tab -->
+                        <li role="button" class="active" (click)="switchTab(true)">
+                            <a aria-controls="personal" role="tab" data-toggle="tab" aria-expanded="true">
+                                <h4>RECRUITER</h4>
+                            </a>
+                        </li>
+
+                        <!-- Company Account Tab -->
+                        <li role="button" class="" (click)="switchTab(false)">
+                            <a aria-controls="company" role="tab" data-toggle="tab" aria-expanded="false">
+                                <h4>FREELANCE</h4>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End of Nav Tabs -->
+
+
+
+                    <!-- Start of Tab Content -->
+                    <div class="tab-content ptb60">
+
+                        <!-- Start of Tabpanel for Personal Account -->
+                        <div role="tabpanel" class="tab-pane active" id="personal">
+                            <div class="row">
+                                <!-- <p>{{'auth.titleregister' | translate}}</p> -->
+                                <form [formGroup]="registerForm" (ngSubmit)="registerAction()" novalidate>
+                                    
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label>E-mail</label>
+                                            <input formControlName="email" type="email" id="email" name="email" class="form-control" required/>
+                                        </div>
+
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input formControlName="password" type="password" id="password" name="password" class="form-control" required/>
+                                        </div>
+
+                                        <!-- Form Group -->
+                                        <div class="form-group mb30">
+                                            <label>Confirm Password</label>
+                                            <input formControlName="passwordconfirm" type="password" id="passwordconfirm" name="passwordconfirm" class="form-control" required/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Language</label>
+                                            
+                                            <select formControlName="language" name="language" id="language" class="form-control">
+                                                <option value="en">English</option>
+                                                <option value="fr">Français</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label>Full Name</label>
+                                            <input formControlName="fullname" type="text" id="fullname" name="fullname" class="form-control" required/>
+                                        </div>
+
+
+
+                                        <div *ngIf="recruiter">
+
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label>Company Name</label>
+                                                <input formControlName="company" type="text" id="company" name="company" class="form-control"  [required]="isRequired" />
+                                            </div>
+        
+        
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label>Website</label>
+                                                <input formControlName="website" type="text" id="website" name="website" class="form-control" [required]="isRequired" />
+                                            </div>
+        
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input formControlName="address" type="text" id="address" name="address" class="form-control" [required]="isRequired"/>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    
+                                    
+
+                                    <!-- Form Group -->
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group text-center">
+                                            <input type="checkbox" id="agree" name="agree" formControlName="agree" class="form-control" [(ngModel)]="agree"/>
+                                            <label for="agree">Agree with the <a>Terms and Conditions</a></label>
+                                        </div>
+
+                                        <!-- Form Group -->
+                                        <div class="form-group text-center nomargin">
+                                            <button type="submit" class="btn btn-blue btn-effect" [disabled]="registerForm.invalid || formSubmitting || !agree">{{'auth.register'}}</button>
+                                        </div>
+                                        <span *ngIf="formErrors.email && formErrors.email == 'unique'" class="help-block"><b>{{'message.validation.unique'}}</b></span>
+                                        <span *ngIf="formSuccess.status" class="help-block"><b>{{formSuccess.message}}</b></span>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- End of Tabpanel for Personal Account -->
+
+                        <!-- Start of Tabpanel for Company Account -->
+                        <div role="tabpanel" class="tab-pane" id="company">
+                            <!-- <div class="row">
+
+                              
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                                    
+
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                        <input formControlName="email" type="email" id="email" name="email" class="form-control" placeholder="{{'auth.email' | translate}}" />
+                                    </div>
+
+                                    
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+
+                                    
+                                    <div class="form-group">
+                                        <label>Confirm Password</label>
+                                        <input type="password" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                                   
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+
+
+                                   
+                                    <div class="form-group">
+                                        <label>Website</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+
+                                    
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="row mt20">
+                                <div class="col-md-12 text-center">
+
+                                    
+                                    <div class="form-group">
+                                        <input type="checkbox" id="agree2">
+                                        <label for="agree2">Agree with the <a>Terms and Conditions</a></label>
+                                    </div>
+
+                                    
+                                    <div class="form-group text-center nomargin">
+                                        <button type="submit" class="btn btn-blue btn-effect" [disabled]="registerForm.invalid || formSubmitting">{{'auth.register' | translate}}</button>
+                                    </div>
+                                    <span *ngIf="formErrors.email && formErrors.email == 'unique'" class="help-block"><b>{{'message.validation.unique' | translate}}</b></span>
+                                    <span *ngIf="formSuccess.status" class="help-block"><b>{{formSuccess.message | translate}}</b></span>
+
+                                </div>
+                            </div> -->
+
+                        </div>
+                        <!-- End of Tabpanel for Company Account -->
+
+                    </div>
+                    <!-- End of Tab Content -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ===== End of Login - Register Section ===== -->

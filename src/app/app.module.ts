@@ -23,6 +23,7 @@ import { IpService } from './ip.service';
 import { WeatherComponent } from './weather/weather.component';
 import { SignInComponent } from './sign-in.component';
 import { SignUpComponent } from './sign-up.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SignUpComponent } from './sign-up.component';
     IpComponent,
     WeatherComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
