@@ -24,6 +24,8 @@ import { WeatherComponent } from './weather/weather.component';
 import { SignInComponent } from './sign-in.component';
 import { SignUpComponent } from './sign-up.component';
 import { RegisterComponent } from './register/register.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { DynamicFormQuestionComponent } from './dynamic-form/dynamic-form-question.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { RegisterComponent } from './register/register.component';
     WeatherComponent,
     SignInComponent,
     SignUpComponent,
-    RegisterComponent
+    RegisterComponent,
+    DynamicFormComponent,
+    DynamicFormQuestionComponent
   ],
   imports: [
     BrowserModule,
